@@ -1,6 +1,5 @@
 {
   "name": "event-dispatch",
-  "private": true,
   "version": "0.4.1",
   "description": "Dispatching and listening for application events in Typescript",
   "license": "Apache-2.0",
@@ -8,6 +7,9 @@
   "author": {
     "name": "Umed Khudoiberdiev",
     "email": "pleerock.me@gmail.com"
+  },
+  "publishConfig": {
+    "registry": "http://localhost:4873"
   },
   "repository": {
     "type": "git",

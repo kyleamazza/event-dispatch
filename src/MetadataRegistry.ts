@@ -67,7 +67,7 @@ export class MetadataRegistry {
     private instantiateClass(subscriber: SubscriberMetadata) {
         if (!subscriber.instance) {
             const cls: any = subscriber.object;
-            subscriber.instance = this._container ? this._container.get(cls) : new cls();
+            subscriber.instance = this._container ? this._container.get(cls) : new cls(...subscriber.args);
         }
 
         return subscriber.instance;

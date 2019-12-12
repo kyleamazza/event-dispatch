@@ -1,12 +1,26 @@
 import {defaultMetadataRegistry} from "./MetadataRegistry";
 
-export function EventSubscriber() {
-    return function (object: Function) {
-        defaultMetadataRegistry.addSubscriberMetadata({
-            object: object,
-            instance: undefined
-        });
-    };
+export function EventSubscriber<T extends {
+    new(...args: any[]): {} 
+}>(constructor: T) {
+    let newConstructor: any = (...args: any[]) => {
+        let fn: any = () => {
+            defaultMetadataRegistry.addSubscriberMetadata({
+                object: constructor,
+                instance: undefined,
+                args
+            });
+            return new constructor(...args);
+        }
+
+        fn.prototype = constructor.prototype;
+
+        return new fn();
+    }
+
+    newConstructor.prototype = constructor.prototype;
+
+    return newConstructor;
 }
 
 export function On(eventName: string): Function;
